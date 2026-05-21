@@ -1,10 +1,4 @@
 ```python
-# ANTES (Com erro lógico e de entrada)
-# preco = input("Digite o preço: ")
-# desconto = 10
-# preco_final = preco - desconto / 100  # Erro: divisão executada antes da subtração
-
-# DEPOIS (Corrigido com Tratamento de Erros e Validação)
 try:
     preco_bruto = float(input("Digite o preço do produto: "))
     if preco_bruto < 0:
