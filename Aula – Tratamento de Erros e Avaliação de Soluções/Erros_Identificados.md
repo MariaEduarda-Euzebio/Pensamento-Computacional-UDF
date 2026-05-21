@@ -1,10 +1,15 @@
-# Registro de Erros Identificados - Projeto
+# Registro de Erros Identificados - Sistema de Portfólio e Briefing
 
-## 1. Erro de Entrada (Falta de Validação)
-* **Sintoma/Bug:** O sistema aceitava caracteres de texto ou valores vazios onde eram esperados números (ex: ID de usuário ou valores monetários), gerando quebras na execução (*Crash*).
+Este documento registra o mapeamento de falhas humanas (erros) e seus impactos no sistema antes da reformulação lógica baseada na Arquitetura da Resiliência.
 
-## 2. Erro Lógico e Ambiguidade
-* **Sintoma/Bug:** Falta de parênteses em expressões matemáticas de cálculo de taxas/descontos, gerando resultados falsos (erros sutis que não travam o sistema, mas corrompem os dados).
+## 1. Erro de Entrada (Falta de Validação de Tipo)
+* **Origem do Erro:** O usuário preenchia o campo de orçamento estimado para o projeto de design inserindo letras e símbolos (ex: "R$ 1500,00" ou "A combinar") em um campo que exigia cálculo matemático puro.
+* **Sintoma/Bug:** O sistema sofria um *Crash* (interrupção abrupta) tentando converter texto em número flutuante para calcular as taxas.
 
-## 3. Falta de Tratamento de Exceções (Ação Defensiva)
-* **Sintoma/Bug:** Operações de divisão por zero ou busca por índices inexistentes faziam o programa encerrar abruptamente sem avisar o usuário.
+## 2. Erro Lógico por Ambiguidade e Precedência Matemáticas
+* **Origem do Erro:** No cálculo do desconto para clientes fidelidade, a expressão foi escrita sem parênteses: `preco_final = preco - preco * desconto / 100`.
+* **Sintoma/Bug:** O sistema gerava um "resultado falso" (cálculo de desconto incorreto dependendo da ordem dos fatores), corrompendo o balanço financeiro sem disparar alertas de travamento.
+
+## 3. Erro de Execução (Ausência de Tratamento de Exceções)
+* **Origem do Erro:** Ao carregar as imagens do portfólio através de uma lista indexada, se o usuário tentasse acessar um índice que ainda não havia sido carregado (ex: buscar a imagem 5 em uma galeria que só tinha 3), o interpretador quebrava.
+* **Sintoma/Bug:** Exibição da mensagem nativa de erro `IndexError` diretamente na tela do usuário final, quebrando a interface do sistema.
