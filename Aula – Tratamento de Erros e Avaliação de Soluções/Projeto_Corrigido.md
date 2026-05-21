@@ -1,7 +1,5 @@
-# =====================================================================
 # VERSÃO CORRIGIDA E RESILIENTE (Arquitetura da Resiliência)
 # COMPONENTE: Sistema de Gestão de Projetos de Design
-# =====================================================================
 
 def calcular_orcamento_seguro(orcamento_base, taxa_urgencia, indice_portfolio):
     """
